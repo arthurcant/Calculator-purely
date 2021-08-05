@@ -82,6 +82,19 @@ html {
     flex-wrap: wrap;
 
     margin-top: 1rem;
+
+    width: 29rem;
+}
+
+#fist {
+    display: flex;
+    flex-direction: row;
+}
+
+#aside {
+    position: relative;
+    right: -9rem;
+    align-self: flex-end;
 }
 
 .shape_button {
@@ -100,6 +113,11 @@ html {
 
 }
 
+#others_buttons {
+    display: flex;
+    flex-wrap: wrap;
+    width: 23.5rem;
+}
 
 
 
