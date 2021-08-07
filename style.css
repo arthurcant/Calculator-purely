@@ -117,12 +117,10 @@ html {
     display: flex;
     flex-wrap: wrap;
     width: 23.5rem;
-    position: absolute;
-    top: 18rem;
-    right: 34.4rem;
+    position: relative;
+    top: -15rem;
+    right: 0.4rem;
 }
-
-
 
 
 
