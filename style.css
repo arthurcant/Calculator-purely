@@ -92,12 +92,35 @@ html {
 }
 
 #aside {
-    position: relative;
-    right: -9rem;
-    align-self: flex-end;
+    display: flex;
+    width: 23.9rem;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
 }
 
-.shape_button {
+
+
+#shape_button01,
+#shape_button02,
+#shape_button03,
+#shape_button04,
+#shape_button05,
+#shape_button06,
+#shape_button07,
+#shape_button08,
+#shape_button09,
+#shape_button10,
+#shape_button11,
+#shape_button12,
+#shape_button13,
+#shape_button14,
+#shape_button15,
+#shape_button16,
+#shape_button17,
+#shape_button18,
+#shape_button19,
+#shape_button20 {
     display: flex;
     justify-content: center;
     align-items: center;

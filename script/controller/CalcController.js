@@ -25,7 +25,7 @@ class CalcController {
     }
 
     initButtonsEvents() {        
-        let buttons = document.querySelectorAll("#fist div, #aside > div, #others_buttons > div");
+        let buttons = document.querySelectorAll("#fist div, #aside div, #others_buttons div");
 
         buttons.forEach((btn, index) => {
             
