@@ -86,21 +86,6 @@ html {
     width: 29rem;
 }
 
-#fist {
-    display: flex;
-    flex-direction: row;
-}
-
-#aside {
-    display: flex;
-    width: 23.9rem;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: flex-end;
-}
-
-
-
 #shape_button01,
 #shape_button02,
 #shape_button03,
@@ -133,16 +118,6 @@ html {
 
     margin-right: 1rem;
     margin-bottom: 1rem;
-
-}
-
-#others_buttons {
-    display: flex;
-    flex-wrap: wrap;
-    width: 23.5rem;
-    position: relative;
-    top: -15rem;
-    right: 0.4rem;
 }
 
 

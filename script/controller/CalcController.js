@@ -1,7 +1,6 @@
 class CalcController {
 
-    constructor() {
-        
+    constructor() {        
         this._displayCalcEl = document.querySelector("#display_calc");
         this._hoursEl = document.querySelector("#hours")
         this._dateEl = document.querySelector("#date")
@@ -21,16 +20,33 @@ class CalcController {
             this.setDisplayDateTime();
 
         }, 1000);
-
     }
 
+    addEventListenerAll(element, events, fn){ // Função criada para adicionar em todos os elementos um addEventListener
+
+        events.split(' ').forEach(event => { // Uma string vai ser passada pela variável events e esse variável vai ser dividida pela função split
+                                             // fn = function.
+            element.addEventListener(event, fn, false);
+
+        });
+
+    }
+    
     initButtonsEvents() {        
-        let buttons = document.querySelectorAll("#fist div, #aside div, #others_buttons div");
+        let buttons = document.querySelectorAll("#buttons div");
 
         buttons.forEach((btn, index) => {
-            
-            btn.addEventListener('click', e => {
-                console.log(btn);
+            this.addEventListenerAll(btn, 'click drag', e =>{
+
+                console.log(btn.className);
+
+            });
+
+            this.addEventListenerAll(btn, 'mouseover mousedown mouseup', e => {
+
+                btn.style.cursor = 'pointer';
+                // cursor: pointer
+
             });
             
         });
@@ -42,23 +58,25 @@ class CalcController {
             month:"long",
             year:"numeric"
         });
-        
+
+        this.displayTime = this.currentDate.toLocaleTimeString(this._locale);
+
     }
 
-    get displayTime(){
+    get displayTime(){ // display funciona como propriedades no js; 
         return this._timeEl.innerHTML;
     }
 
     set displayTime(value) {
-        this._timeEl.innerHTML = value;
+        this._hoursEl.innerHTML = value;
     }
 
     get displayDate() {
-        return this._dateEl.innerHTML;
+        return this._hoursEl.innerHTML;
     }
 
     set displayDate(value) {
-        this._dateEl.innerHTML = value;
+        this._hoursEl.innerHTML = value;
     }
 
     get displayCalc(){
