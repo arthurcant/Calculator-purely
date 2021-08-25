@@ -121,6 +121,17 @@ html {
 }
 
 
+.btn-multiplication,
+.btn-plus,
+.btn-subtract,
+.btn-equal,
+.btn-dot,
+.btn-division,
+.btn-pocent {
+
+    font-size: 1.2rem;
+
+}
 
 
 
