@@ -70,6 +70,12 @@ html {
 
 #hours {
     margin-left: 1rem;
+    font-size: 1.9rem;
+}
+
+#date {
+    margin-left: 3rem;
+    font-size: 1.9rem;
 }
 
 #display_calc {

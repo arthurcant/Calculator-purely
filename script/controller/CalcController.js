@@ -27,6 +27,8 @@ class CalcController {
 
         }, 1000);
 
+        this.setLastNumberToDisplay();
+
     }
 
     addEventListenerAll(element, events, fn){ // Função criada para adicionar em todos os elementos um addEventListener
@@ -113,14 +115,16 @@ class CalcController {
             if(last) this._operation.push(last);
         }
 
+        this.setLastNumberToDisplay();
+
     }
 
     getLastItem(isOperator = true) {
         let lastItem;
+        
+        for(let i = this._operation.length - 1; i >= 0; i--) {
 
-        for(let i = this._operation.length - 1; i > 0; i--) {
-
-            if((this.isOperator(this._operation[i]) === isOperator)) {
+            if(this.isOperator(this._operation[i]) === isOperator) {
                 lastItem = this._operation[i];
                 break;
             }
@@ -149,11 +153,6 @@ class CalcController {
             if (this.isOperator(value)) {
 
                 this.setLastOperation(value);
-
-            } else if(isNaN(value)) {
-                
-                //Other thing.
-                console.log(value);
  
             } else {
 
@@ -172,7 +171,7 @@ class CalcController {
             } else {
 
                 let newValue = this.getLastOperation().toString() + value.toString();
-                this.setLastOperation(parseInt(newValue));
+                this.setLastOperation(parseFloat(newValue));
 
                 this.setLastNumberToDisplay();
             
@@ -182,11 +181,22 @@ class CalcController {
 
     }
 
+    addDot() {
+        let lastOperation = this.getLastItem();
+
+        if(this.isOperator(lastOperation) || !lastOperation) {
+            this.pushOperation('0.');          
+        } else {
+            this.setLastOperation(lastOperation.toString() + '.');
+        }
+
+        this.setLastNumberToDisplay();
+
+    }
+
     setError() {
 
         this.displayCalc = "Error";
-        // this._displayCalcEl.style.right = '-18rem';
-
     }
 
 
@@ -217,8 +227,8 @@ class CalcController {
             case 'equal':
 
             break;
-            case 'ponto':
-                this.addOperation('.');
+            case 'dot':
+                this.addDot();
                 break;
             case '0':
             case '1':
@@ -230,7 +240,7 @@ class CalcController {
             case '7':
             case '8':
             case '9':
-                this.addOperation(parseInt(value));
+                this.addOperation(parseFloat(value));
                 break;
             default:
                 this.setError();
