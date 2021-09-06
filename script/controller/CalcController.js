@@ -15,6 +15,7 @@ class CalcController {
 
         this.initialize();
         this.initButtonsEvents();
+        this.initKeyboard();
     }
 
     initialize() {
@@ -31,6 +32,55 @@ class CalcController {
 
     }
 
+    initKeyboard(){
+        
+        document.addEventListener('keyup', e =>{
+
+            switch (e.key) {
+                case 'Escape':
+                    this.clearAll();
+                break;
+
+                case 'Backspace': 
+                    this.clearEntry();
+                break;
+
+                case '+':
+                case '-':
+                case '*':
+                case '/':
+                case '%':
+                    this.addOperation(e.key);
+                break;
+
+                case 'Enter':
+                case '=':
+                    this.calc();
+                break;
+
+                case '.':
+                case ',':
+                    this.addDot();
+                break;
+
+                case '0':
+                case '1':
+                case '2':
+                case '3':
+                case '4':
+                case '5':
+                case '6':
+                case '7':
+                case '8':
+                case '9':
+                    this.addOperation(parseInt(e.key));
+                break;
+            }
+
+        });
+
+    }    
+
     addEventListenerAll(element, events, fn){ // Função criada para adicionar em todos os elementos um addEventListener
 
         events.split(' ').forEach(event => { // Uma string vai ser passada pela variável events e esse variável vai ser dividida pela função split
@@ -44,14 +94,16 @@ class CalcController {
 
     clearAll() {
         this._operation = [];
-        this.setLastNumberToDisplay();
+        this._lastNumber = '';
+        this._lastOperator = '';
 
+        this.setLastNumberToDisplay();
     }
 
     clearEntry() {
         this._operation.pop();
-        this.setLastNumberToDisplay();
 
+        this.setLastNumberToDisplay();
     }
 
     getLastOperation() {
@@ -171,7 +223,7 @@ class CalcController {
             } else {
 
                 let newValue = this.getLastOperation().toString() + value.toString();
-                this.setLastOperation(parseFloat(newValue));
+                this.setLastOperation(newValue);
 
                 this.setLastNumberToDisplay();
             
@@ -183,6 +235,8 @@ class CalcController {
 
     addDot() {
         let lastOperation = this.getLastItem();
+
+        if(typeof lastOperation === 'string' && lastOperation.split('').indexOf('.') > -1) return;
 
         if(this.isOperator(lastOperation) || !lastOperation) {
             this.pushOperation('0.');          
@@ -227,7 +281,7 @@ class CalcController {
             case 'equal':
 
             break;
-            case 'ponto':
+            case 'dot':
                 this.addDot();
                 break;
             case '0':
@@ -240,7 +294,7 @@ class CalcController {
             case '7':
             case '8':
             case '9':
-                this.addOperation(parseInt(value));
+                this.addOperation(parseFloat(value));
                 break;
             default:
                 this.setError();
