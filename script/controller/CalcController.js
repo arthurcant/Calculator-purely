@@ -29,6 +29,37 @@ class CalcController {
         }, 1000);
 
         this.setLastNumberToDisplay();
+        this.pasteFromClipboard();
+
+
+    }
+
+    copyToClipboard(){
+        let input = document.createElement('input');
+
+        input.value = this.displayCalc;
+
+        document.body.appendChild(input);
+
+        input.select();
+
+        document.writeText(input);
+        
+        input.remove()
+
+    }
+
+    pasteFromClipboard(){
+
+        document.addEventListener('paste', e => {
+
+            let text = e.clipboardData.getData('Text');
+
+            this.displayCalc = parseFloat(text);
+
+            this.pushOperation(parseFloat(text))
+
+        });
 
     }
 
@@ -75,6 +106,11 @@ class CalcController {
                 case '9':
                     this.addOperation(parseInt(e.key));
                 break;
+
+                case 'c':
+                    if(e.ctrlKey) this.copyToClipboard();
+                break;
+
             }
 
         });
@@ -91,7 +127,6 @@ class CalcController {
 
     }
     
-
     clearAll() {
         this._operation = [];
         this._lastNumber = '';
@@ -279,8 +314,8 @@ class CalcController {
                 this.addOperation('%');
                 break;
             case 'equal':
-
-            break;
+                this.calc();
+                break;
             case 'dot':
                 this.addDot();
                 break;
@@ -333,7 +368,6 @@ class CalcController {
         });
 
         this.displayTime = this.currentDate.toLocaleTimeString(this._locale);
-
     }
 
     get displayTime(){ // display funciona como propriedades no js; 
