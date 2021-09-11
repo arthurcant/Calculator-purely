@@ -4,6 +4,8 @@ class CalcController {
         
         this._audio = new Audio('click.mp3');
         this._audioOnOff = false;
+        this._toggleDistance = true;
+
         this._lastOperator = '';
         this._lastNumber = '';
 
@@ -42,6 +44,54 @@ class CalcController {
 
     toggleAudio(){
         this._audioOnOff = !this._audioOnOff;
+    }
+
+    toggleValue(){
+        this._toggleDistance = !this._toggleDistance;
+    }
+
+    distanceSet(value){
+
+        this._displayCalcEl.style.left = '27rem';
+
+        if(value.toString().length == 2) {
+            this._displayCalcEl.style.left = '25rem';
+
+        } else if(value.toString().length == 3){
+            this._displayCalcEl.style.left = '23rem';
+        
+        }else if(value.toString().length == 4){
+            this._displayCalcEl.style.left = '20rem';
+        
+        }else if(value.toString().length == 5){
+            this._displayCalcEl.style.left = '18rem';
+        
+        }else if(value.toString().length == 6){
+            this._displayCalcEl.style.left = '16rem';
+        
+        }else if(value.toString().length == 7){
+            this._displayCalcEl.style.left = '13rem';
+        
+        }else if(value.toString().length == 8){
+            this._displayCalcEl.style.left = '11rem';
+        
+        }else if(value.toString().length == 9){
+            this._displayCalcEl.style.left = '9rem';
+            
+        }else if(value.toString().length == 10){
+            this._displayCalcEl.style.left = '6rem';
+        
+        }else if(value.toString().length == 11){
+            this._displayCalcEl.style.left = '4rem';
+        
+        }else if(value.toString().length == 11){
+            this._displayCalcEl.style.left = '2rem';
+        
+        }else if(value.toString().length == 12){
+            this._displayCalcEl.style.left = '1rem';
+        
+        }
+        
     }
 
     playAudio() {
@@ -85,6 +135,7 @@ class CalcController {
         document.addEventListener('keyup', e =>{
 
             this.playAudio();
+            
 
             switch (e.key) {
                 case 'Escape':
@@ -188,6 +239,13 @@ class CalcController {
     }
 
     getResult() {
+
+        try {
+            return eval(this._operation.join(""));
+        } catch (e) {
+            setTimeout(() => this.setError(), 1);
+        }
+
         return eval(this._operation.join(""));
     }
 
@@ -254,6 +312,8 @@ class CalcController {
 
     addOperation(value) {
 
+        console.log('addOperation', value);
+
         if (isNaN(this.getLastOperation())) {
 
             if (this.isOperator(value)) {
@@ -293,9 +353,12 @@ class CalcController {
         if(typeof lastOperation === 'string' && lastOperation.split('').indexOf('.') > -1) return;
 
         if(this.isOperator(lastOperation) || !lastOperation) {
-            this.pushOperation('0.');          
+            //this.pushOperation('0.');
+            this.setLastOperation('0.');
+                      
         } else {
             this.setLastOperation(lastOperation.toString() + '.');
+        
         }
 
         this.setLastNumberToDisplay();
@@ -303,7 +366,6 @@ class CalcController {
     }
 
     setError() {
-
         this.displayCalc = "Error";
     }
 
@@ -412,6 +474,14 @@ class CalcController {
     }
 
     set displayCalc(value) {
+        
+        if(value.toString().length > 12){ // seeing it still.
+            this.setError();
+            return false;
+        }
+
+        this.distanceSet(value);
+        
         this._displayCalcEl.innerHTML = value;
     }
 
